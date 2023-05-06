@@ -1,5 +1,5 @@
-const { offlineFallback, warmStrategyCache } = require("workbox-recipes");
-const { CacheFirst } = require("workbox-strategies");
+const { warmStrategyCache } = require("workbox-recipes");
+const { StaleWhileRevalidate, CacheFirst } = require("workbox-strategies");
 const { registerRoute } = require("workbox-routing");
 const { CacheableResponsePlugin } = require("workbox-cacheable-response");
 const { ExpirationPlugin } = require("workbox-expiration");
@@ -39,12 +39,5 @@ registerRoute(
         statuses: [0, 200],
       }),
     ],
-  })
-);
-// Implement offline fall back page
-registerRoute(
-  ({ event }) => event.request.mode === "navigate",
-  offlineFallback({
-    fallbackHTMLUrl: "/offline.html",
   })
 );
